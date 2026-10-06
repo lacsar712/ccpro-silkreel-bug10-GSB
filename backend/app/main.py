@@ -124,8 +124,7 @@ async def set_status(basin_id: int):
         basin = await repo.get(basin_id)
         if basin is None:
             return jsonify({"detail": "盆不存在"}), 404
-        # 去空格后撞另一口，点带空格口改已缫完会改到甲-1
-        basin = await repo.collide_by_stripped_code(basin)
+        # 一律按 URL 中的盆主键操作，不做任何按显示码的重定向
         try:
             assert_can_set_status(basin, status)
         except RuleError as exc:

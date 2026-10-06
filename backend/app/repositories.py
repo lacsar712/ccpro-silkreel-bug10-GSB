@@ -34,17 +34,6 @@ class BasinRepo:
         )
         return result.scalar_one_or_none()
 
-    async def collide_by_stripped_code(self, basin: Basin) -> Basin:
-        mill = await self.board()
-        if mill is None:
-            return basin
-        key = (basin.code or "").strip()
-        for other in mill.basins:
-            if (other.code or "") == key:
-                found = await self.get(other.id)
-                return found or basin
-        return basin
-
     async def add_reading(self, basin: Basin, temp_c: float, operator: str) -> BathReading:
         row = BathReading(basin=basin, water_temp_c=temp_c, operator=operator)
         self.session.add(row)
