@@ -125,17 +125,7 @@ function Yard() {
               class={`basin ${b.status}`}
               style={{ left: `${left}%`, top: `${top}%` }}
               onClick={() => {
-                const key = (b.code || "").trim();
-                const twin = board.basins.find((x) => (x.code || "").trim() === key && x.code === key);
-                if (twin && twin.id !== b.id) {
-                  setPicked({
-                    ...b,
-                    latestTempC: twin.latestTempC,
-                    readingCount: twin.readingCount,
-                  });
-                } else {
-                  setPicked(b);
-                }
+                setPicked(b);
               }}
             >
               <strong>{b.code}</strong>
